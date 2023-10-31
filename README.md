@@ -18,27 +18,25 @@ Note that the versions of Quarkus & Logbook in the ticket above is way older tha
 2. **Terminal 2:** Send a HEAD request, and note `200 OK`.
 
 ```bash
-curl -vI http://localhost:8080/handler/me
+curl -vI http://localhost:8080/handler/test
 *   Trying 127.0.0.1:8080...
 * Connected to localhost (127.0.0.1) port 8080 (#0)
-> HEAD /handler/me HTTP/1.1
+> HEAD /handler/test HTTP/1.1
 > Host: localhost:8080
 > User-Agent: curl/8.1.2
 > Accept: */*
->
+> 
 < HTTP/1.1 200 OK
 HTTP/1.1 200 OK
-< connection: keep-alive
-connection: keep-alive
 
-<
+< 
 * Connection #0 to host localhost left intact
 ```
 
 3. **Terminal 1:** Notince that Logbook has added the following logs:
 
 ```
-2023-10-31 17:22:23,905 TRACE [org.zal.log.Logbook] (executor-thread-1) Incoming Request: 9c5c27cf825a183d
+2023-10-31 17:32:43,000 TRACE [org.zal.log.Logbook] (executor-thread-1) Incoming Request: d9737ababd353665
 Remote: localhost:8080
 HEAD http://localhost:8080/handler/test HTTP/1.1
 Accept: */*
