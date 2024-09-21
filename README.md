@@ -1,4 +1,58 @@
-# quarkus-logbook
+# Quarkus :heart: Logbook
+
+This is a sample project to use Quarkus/Resteasy/Logbook together.
+
+It was created as a response to [Logbook issue 1384](https://github.com/zalando/logbook/issues/1384), which states:
+
+> Quarkus Resteasy endpoint returning 500 to client after HEAD request because of Logbook NullPointerException
+
+I originally, created the project with only the request logging in mind. It worked fine, no 500 errors!
+
+After [Issue #1](https://github.com/msdousti/quarkus-logbook/issues/1) asked for logging the response as well,
+I tried to do that and observed the dreaded `NullPointerException`. This happens for HEAD or any other response without
+a response entity. I fixed the issue, and 
+[opened a PR with the Logbook project](https://github.com/zalando/logbook/pull/1909). 
+This happens with Logbook 3.9, so hopefully the fix will be merged in 3.10+.
+
+## How to test
+Below is the result of the test based on my fix. Note that I'm using Logbook `3.10.0-SNAPSHOT`, 
+which is my local fixed version.
+
+1. **Terminal 1:** Run the project
+```
+./mvnw compile quarkus:dev
+```
+
+2. **Terminal 2:** Send a HEAD request, and note `200 OK`.
+
+```bash
+curl -iI http://localhost:8080/hello
+```
+
+```
+HTTP/1.1 200 OK
+connection: keep-alive
+```
+
+3. **Terminal 1:** Notice that Logbook has added the following logs:
+
+```
+2024-09-22 01:34:37,971 TRACE [org.zal.log.Logbook] (executor-thread-1) Incoming Request: de113af37c53368a
+Remote: localhost:8080
+HEAD http://localhost:8080/hello HTTP/1.1
+Accept: */*
+Host: localhost:8080
+User-Agent: curl/8.5.0
+
+2024-09-22 01:34:37,979 TRACE [org.zal.log.Logbook] (executor-thread-1) Outgoing Response: de113af37c53368a
+Duration: 11 ms
+HTTP/1.1 200 OK
+```
+
+## Default Quarkus readme
+
+<details>
+<summary>Expand to see the default Quarkus readme</summary>
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -65,3 +119,4 @@ If you want to learn more about building native executables, please consult http
 Easily start your RESTful Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+</details>
