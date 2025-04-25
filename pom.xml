@@ -16,7 +16,7 @@
         <quarkus.platform.version>3.14.4</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.0</surefire-plugin.version>
-        <logbook-bom.version>3.9.0</logbook-bom.version>
+        <logbook-bom.version>3.12.0</logbook-bom.version>
     </properties>
     <dependencyManagement>
         <dependencies>
